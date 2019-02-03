@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controller.Controller">
+  <children>
+    <Button fx:id="toAddHouse" layoutX="17.0" layoutY="15.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Додати" />
+    <Button fx:id="delHouse" layoutX="17.0" layoutY="43.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Видалити" />
+    <TableView fx:id="table" layoutX="14.0" layoutY="101.0" prefHeight="656.0" prefWidth="1001.0">
+      <columns>
+        <TableColumn prefWidth="120.0" text="id" fx:id="id" />
+        <TableColumn prefWidth="401.0" text="Власник" fx:id="owner" />
+        <TableColumn prefWidth="120.0" text="Номер квартири" fx:id="apartmentNumber" />
+        <TableColumn prefWidth="120.0" text="Площа" fx:id="area" />
+        <TableColumn prefWidth="120.0" text="Поверх" fx:id="floor" />
+        <TableColumn prefWidth="120.0" text="Кількість кімнат" fx:id="numberOfRooms" />
+      </columns>
+    </TableView>
+    <Button fx:id="toAddApartment" layoutX="274.0" layoutY="16.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Додати" />
+    <Button fx:id="delApartment" layoutX="274.0" layoutY="44.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Видалити" />
+    <TextField fx:id="filterField" layoutX="698.0" layoutY="74.0" prefHeight="22.0" prefWidth="78.0" />
+    <Label layoutX="98.0" layoutY="15.0" prefHeight="22.0" text="Додати будинок">
+      <font>
+        <Font size="14.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label font="$x1" layoutX="98.0" layoutY="43.0" prefHeight="22.0" text="Видалити будинок" />
+    <MenuButton fx:id="sortBy" layoutX="558.0" layoutY="16.0" mnemonicParsing="false" prefHeight="22.0" text="Сортувати">
+      <items>
+        <RadioMenuItem mnemonicParsing="false" text="за id" fx:id="byId" />
+        <RadioMenuItem mnemonicParsing="false" text="за номером квартири" fx:id="byNumbAp" />
+        <RadioMenuItem mnemonicParsing="false" text="за площею" fx:id="byArea" />
+        <RadioMenuItem mnemonicParsing="false" text="за поверхом" fx:id="byFloor" />
+        <RadioMenuItem mnemonicParsing="false" text="за кількістю кімнат" fx:id="byNumbRooms" />
+        <RadioMenuItem mnemonicParsing="false" text="за влвсником" fx:id="byOwner" />
+      </items>
+    </MenuButton>
+    <SplitMenuButton fx:id="filterBy" layoutX="558.0" layoutY="74.0" mnemonicParsing="false" prefHeight="22.0" text="Фільтрувати за:">
+      <items>
+        <RadioMenuItem mnemonicParsing="false" text="Площа від" fx:id="filterByArea" />
+        <RadioMenuItem mnemonicParsing="false" text="Поверх" fx:id="filterByFloor" />
+        <RadioMenuItem mnemonicParsing="false" text="Кількість кімнат" fx:id="filterByRooms" />
+        <RadioMenuItem mnemonicParsing="false" text="Показати всі" fx:id="filterShowAll" />
+      </items>
+    </SplitMenuButton>
+    <Label font="$x1" layoutX="357.0" layoutY="16.0" prefHeight="22.0" text="Додати квартиру" />
+    <Label font="$x1" layoutX="357.0" layoutY="44.0" prefHeight="22.0" text="Видалити квартиру" />
+    <SplitMenuButton id="filterBy" fx:id="findBy" layoutX="558.0" layoutY="44.0" mnemonicParsing="false" prefHeight="22.0" text="Шукати за">
+      <items>
+        <RadioMenuItem mnemonicParsing="false" text="id" fx:id="findById" />
+        <RadioMenuItem mnemonicParsing="false" text="Власником" fx:id="findByOwner" />
+        <RadioMenuItem mnemonicParsing="false" text="Номером квартири" fx:id="findByNumbApart" />
+        <RadioMenuItem mnemonicParsing="false" text="Показати всі" fx:id="findShowAll" />
+      </items>
+    </SplitMenuButton>
+    <TextField id="filterField" fx:id="findField" layoutX="698.0" layoutY="44.0" prefHeight="22.0" prefWidth="78.0" />
+    <Button fx:id="saveButton" layoutX="906.0" layoutY="15.0" mnemonicParsing="false" text="Зберегти зміни" />
+    <ChoiceBox fx:id="choiceBox" layoutX="17.0" layoutY="74.0" prefHeight="22.0" prefWidth="123.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ChoiceBox>
+  </children>
+</AnchorPane>
