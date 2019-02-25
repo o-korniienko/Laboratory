@@ -7,11 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import sample.model.Apartment;
 import sample.model.House;
 import sample.view.WindowsToAddApartmentAndHouse;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Controller implements Serializable {
@@ -97,6 +102,9 @@ public class Controller implements Serializable {
         setFilter();
         setFindMenu();
 
+        id.setEditable(true);
+        table.setEditable(true);
+
         choiceBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -132,7 +140,8 @@ public class Controller implements Serializable {
             @Override
             public void handle(ActionEvent event) {
                 target = choiceBox.getValue();
-                windows.dispalyDelApartment();
+                int id = table.getSelectionModel().getSelectedItem().getId();
+                delApartment(id);
             }
         });
 
@@ -194,15 +203,118 @@ public class Controller implements Serializable {
 
             }
         });
+
+
+        table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.SECONDARY) {
+                    ContextMenu contextMenu = new ContextMenu();
+                    MenuItem delItem = new MenuItem("Видалити");
+                    delItem.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            houses.getApartments().get(target).remove(indexOfApartment());
+                        }
+                    });
+                    MenuItem addItem = new MenuItem("Додати");
+                    addItem.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            target = choiceBox.getValue();
+                            windows.displayAddApartment();
+                        }
+                    });
+                    contextMenu.getItems().addAll(delItem, addItem);
+                    table.setContextMenu(contextMenu);
+                }
+            }
+        });
+
+
     }
 
+
     public void setToTable() {
+        table.setEditable(true);
         id.setCellValueFactory(param -> param.getValue().idProperty().asString());
+        id.setCellFactory(TextFieldTableCell.<Apartment>forTableColumn());
+        id.setOnEditCommit((TableColumn.CellEditEvent<Apartment, String> event) -> {
+            TablePosition<Apartment, String> pos = event.getTablePosition();
+
+            String idStr = event.getNewValue();
+            int id = Integer.parseInt(idStr);
+
+            int row = pos.getRow();
+            Apartment apartment = event.getTableView().getItems().get(row);
+
+            apartment.setId(id);
+        });
+
         owner.setCellValueFactory(param -> param.getValue().ownerProperty());
+        owner.setCellFactory(TextFieldTableCell.<Apartment>forTableColumn());
+        owner.setOnEditCommit((TableColumn.CellEditEvent<Apartment, String> event) -> {
+            TablePosition<Apartment, String> pos = event.getTablePosition();
+
+            String owner = event.getNewValue();
+
+            int row = pos.getRow();
+            Apartment apartment = event.getTableView().getItems().get(row);
+
+            apartment.setOwner(owner);
+        });
+
         apartmentNumber.setCellValueFactory(param -> param.getValue().apartmentNumberProperty().asString());
+        apartmentNumber.setCellFactory(TextFieldTableCell.<Apartment>forTableColumn());
+        apartmentNumber.setOnEditCommit((TableColumn.CellEditEvent<Apartment, String> event) -> {
+            TablePosition<Apartment, String> pos = event.getTablePosition();
+
+            String apartmentNumber = event.getNewValue();
+
+            int row = pos.getRow();
+            Apartment apartment = event.getTableView().getItems().get(row);
+
+            apartment.setApartmentNumber(Integer.parseInt(apartmentNumber));
+        });
+
         floor.setCellValueFactory(param -> param.getValue().floorProperty().asString());
+        floor.setCellFactory(TextFieldTableCell.<Apartment>forTableColumn());
+        floor.setOnEditCommit((TableColumn.CellEditEvent<Apartment, String> event) -> {
+            TablePosition<Apartment, String> pos = event.getTablePosition();
+
+            String floor = event.getNewValue();
+
+            int row = pos.getRow();
+            Apartment apartment = event.getTableView().getItems().get(row);
+
+            apartment.setFloor(Integer.parseInt(floor));
+        });
+
         area.setCellValueFactory(param -> param.getValue().areaProperty().asString());
+        area.setCellFactory(TextFieldTableCell.<Apartment>forTableColumn());
+        area.setOnEditCommit((TableColumn.CellEditEvent<Apartment, String> event) -> {
+            TablePosition<Apartment, String> pos = event.getTablePosition();
+
+            String area = event.getNewValue();
+
+            int row = pos.getRow();
+            Apartment apartment = event.getTableView().getItems().get(row);
+
+            apartment.setArea(Integer.parseInt(area));
+        });
+
         numberOfRooms.setCellValueFactory(param -> param.getValue().numberOfRoomsProperty().asString());
+        numberOfRooms.setCellFactory(TextFieldTableCell.<Apartment>forTableColumn());
+        numberOfRooms.setOnEditCommit((TableColumn.CellEditEvent<Apartment, String> event) -> {
+            TablePosition<Apartment, String> pos = event.getTablePosition();
+
+            String numberOfRooms = event.getNewValue();
+
+            int row = pos.getRow();
+            Apartment apartment = event.getTableView().getItems().get(row);
+
+            apartment.setNumberOfRooms(Integer.parseInt(numberOfRooms));
+        });
     }
 
     public void addApartment(int id, String owner, int numbA, int area, int floor, int numbRooms) {
@@ -225,16 +337,17 @@ public class Controller implements Serializable {
 
     public void setHouse(House house) {
         this.houses = house;
-       // house.setTestApartments();
-        choiceBox.getItems().setAll(houses.getApartments().keySet());
-        choiceBox.setValue(getRandomKey());
-        target = choiceBox.getValue();
-        table.setItems(houses.getApartments().get(target));
+        //house.setTestApartments();
+        getRandomHouse();
 
     }
 
     public void setWindows(WindowsToAddApartmentAndHouse windows) {
         this.windows = windows;
+    }
+
+    public TableView<Apartment> getTable() {
+        return table;
     }
 
     private void setSort() {
@@ -286,6 +399,10 @@ public class Controller implements Serializable {
 
     public void delHouse(String street) {
         houses.getApartments().remove(street);
+        getRandomHouse();
+    }
+
+    private void getRandomHouse() {
         choiceBox.getItems().setAll(houses.getApartments().keySet());
         choiceBox.setValue(getRandomKey());
         target = choiceBox.getValue();
@@ -320,4 +437,14 @@ public class Controller implements Serializable {
         }
     }
 
+    private int indexOfApartment() {
+        int index = 0;
+        target = choiceBox.getValue();
+        Apartment apartment = table.getSelectionModel().getSelectedItem();
+        List<Apartment> apartments = new ArrayList<>(houses.getApartments().get(target));
+        for (int i = 0; i < apartments.size(); i++) {
+            if (apartments.get(i) == apartment) index = i;
+        }
+        return index;
+    }
 }

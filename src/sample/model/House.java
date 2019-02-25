@@ -1,4 +1,4 @@
-package main.java.sample.model;
+package sample.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,9 +21,6 @@ public class House implements Serializable {
             ObservableList<Apartment> list = FXCollections.observableArrayList();
             for (Map.Entry<String, ArrayList<Apartment>> entry : map2.entrySet()) {
                 map1.put(entry.getKey(), FXCollections.observableArrayList(entry.getValue()));
-            }
-            for (Map.Entry<String, ObservableList<Apartment>> entry : map1.entrySet()) {
-                System.out.println(entry);
             }
             house.apartments = map1;
 
@@ -115,11 +112,10 @@ public class House implements Serializable {
 
     public void delApartment(String key, int id) {
         int ind = -1;
-        System.out.println(key);
-        ObservableList<Apartment> list1= FXCollections.observableArrayList(apartments.get(key));
+        ObservableList<Apartment> list1 = FXCollections.observableArrayList(apartments.get(key));
         ObservableList<Apartment> list2 = FXCollections.observableArrayList(list1);
         for (Apartment a : list2) {
-            if (a.getId()==id){
+            if (a.getId() == id) {
                 list1.remove(a);
                 ind++;
             }

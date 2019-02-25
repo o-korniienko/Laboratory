@@ -25,6 +25,9 @@ public class Apartment implements Serializable {
         this.numberOfRooms = new SimpleIntegerProperty(numberOfRooms);
     }
 
+    public Apartment() {
+    }
+
     public int getId() {
         return id.get();
     }

@@ -98,7 +98,7 @@ public class WindowsToAddApartmentAndHouse implements Serializable {
                 } catch (NumberFormatException e) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Помилка");
-                    alert.setHeaderText("Невдалося додати нову квартиру");
+                    alert.setHeaderText("Поля не заповненні, або містять не коректні дані");
                     alert.setContentText("Поля id, номер квартири, площа, поверх і кількість кімнат - можуть містити лише цифри");
                     alert.showAndWait();
                 }
@@ -118,62 +118,6 @@ public class WindowsToAddApartmentAndHouse implements Serializable {
         window.setScene(scene);
         window.show();
 
-    }
-
-    public void dispalyDelApartment() {
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Видалити квартиру");
-        window.setWidth(300);
-        window.setHeight(215);
-
-        Label label = new Label("Введіть id квартири, яку бажаєте видалити.");
-        label.setLayoutX(20);
-        label.setLayoutY(20);
-        TextField field = new TextField();
-        field.setPrefSize(150, 30);
-        field.setLayoutX(65);
-        field.setLayoutY(50);
-
-        Button delButton = new Button("Видалити");
-        delButton.setPrefSize(100, 30);
-        delButton.setLayoutX(30);
-        delButton.setLayoutY(95);
-        delButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                int id;
-                try {
-                    id = Integer.parseInt(field.getText());
-                    controller.delApartment(id);
-                } catch (NumberFormatException e) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Помилка видалення");
-                    alert.setHeaderText("Повідомлення");
-                    alert.setContentText("Поле id може містити лише цифри");
-                    alert.showAndWait();
-                }
-            }
-        });
-
-
-        Button closeButton = new Button("Закрити");
-        closeButton.setPrefSize(100, 30);
-        closeButton.setLayoutX(145);
-        closeButton.setLayoutY(95);
-        closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                window.close();
-            }
-        });
-
-
-        AnchorPane pane = new AnchorPane();
-        pane.getChildren().addAll(label, field, delButton, closeButton);
-        Scene scene = new Scene(pane);
-        window.setScene(scene);
-        window.show();
     }
 
     public void displayAddHouse() {
@@ -267,4 +211,5 @@ public class WindowsToAddApartmentAndHouse implements Serializable {
         window.setScene(scene);
         window.show();
     }
+
 }
