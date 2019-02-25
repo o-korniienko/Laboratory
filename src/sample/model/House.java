@@ -1,4 +1,4 @@
-package sample.model;
+package main.java.sample.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -201,7 +201,7 @@ public class House implements Serializable {
             for (Map.Entry<String, ObservableList<Apartment>> entry : apartments.entrySet()) {
                 map.put(entry.getKey(), new ArrayList<>(entry.getValue()));
             }
-            oos.writeObject(new HashMap<>(map));
+            oos.writeObject(map);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Зберігання");
             alert.setHeaderText("");

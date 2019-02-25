@@ -15,14 +15,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controller.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="main.java.sample.controller.Controller">
   <children>
     <Button fx:id="toAddHouse" layoutX="17.0" layoutY="15.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Додати" />
     <Button fx:id="delHouse" layoutX="17.0" layoutY="43.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="72.0" text="Видалити" />
     <TableView fx:id="table" layoutX="14.0" layoutY="101.0" prefHeight="656.0" prefWidth="1001.0">
       <columns>
         <TableColumn prefWidth="120.0" text="id" fx:id="id" />
-        <TableColumn prefWidth="401.0" text="Власник" fx:id="owner" />
+        <TableColumn prefWidth="399.0" text="Власник" fx:id="owner" />
         <TableColumn prefWidth="120.0" text="Номер квартири" fx:id="apartmentNumber" />
         <TableColumn prefWidth="120.0" text="Площа" fx:id="area" />
         <TableColumn prefWidth="120.0" text="Поверх" fx:id="floor" />
